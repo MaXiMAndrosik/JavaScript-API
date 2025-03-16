@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 2 page</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: blueviolet;
+            margin: 10px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button id="addElement">Добавить элемент</button>
+    <button id="removeElement">Удалить элемент</button>
+    <button id="cloneElement">Клонировать элемент</button>
+    <div id="container"></div>
+
+    <script>
+        // 1. На странице должны быть кнопки "Добавить элемент", "Удалить элемент" и
+        // "Клонировать элемент".
+        // 2. При нажатии на кнопку "Добавить элемент" на страницу добавляется новый
+        // квадратный элемент(<div>) с размерами 100x100 пикселей. Этот элемент
+        // должен иметь класс .box и содержать текст, указывающий порядковый номер
+        // элемента (1, 2, 3 и так далее).
+        // 3. При нажатии на кнопку "Удалить элемент" удаляется последний добавленный
+        // элемент, если таковой имеется.
+        // 4. При нажатии на кнопку "Клонировать элемент" создается копия последнего
+        // добавленного элемента и добавляется на страницу.
+        // 5. Все элементы имеют класс .box и стилизованы с помощью CSS (см. пример).
+        // 6. Элементы могут быть добавлены, удалены и клонированы в любом порядке и в
+        // любом количестве.
+
+        let divNumber = 0;
+
+        addElement.addEventListener('click', () => {
+            const newDiv = document.createElement("div");
+            newDiv.classList.add("box");
+            divNumber++;
+            newDiv.textContent = `${divNumber}`;
+            container.appendChild(newDiv);
+        });
+
+        removeElement.addEventListener('click', () => {
+            if (container.children.length > 0) {
+                container.lastElementChild.remove();
+                divNumber--;
+            }
+        });
+
+        cloneElement.addEventListener('click', () => {
+
+            if (container.children.length > 0) {
+                const clonedElement = container.lastElementChild.cloneNode(true);
+                container.appendChild(clonedElement);
+                console.log(clonedElement);
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>

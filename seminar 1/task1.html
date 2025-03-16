@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Страница 1</title>
+</head>
+
+<body>
+
+    <section>
+        <div>Текущая ширина и высота окна браузера</div>
+        <p>Высота: <span class="width"></span></p>
+        <p>Ширина: <span class="height"></span></p>
+    </section>
+
+    <section>
+        <div>Управления историей переходов на веб - странице</div>
+        <br>
+        <a href="./task1.html">Страница 1</a>
+        <a href="./task.html">Страница 2</a>
+        <br>
+        <button class="forward">Вперед</button>
+        <button class="back">Назад</button>
+    </section>
+
+
+    <script>
+
+        // Напишите функцию, которая будет выводить текущую
+        // ширину и высоту окна браузера при его изменении
+        const resizeWindow = () => {
+            const winWidth = document.querySelector('.width');
+            winWidth.textContent = window.innerWidth;
+            const winHeight = document.querySelector('.height');
+            winHeight.textContent = window.innerHeight;
+
+        }
+        window.addEventListener('load', resizeWindow);
+        window.addEventListener('resize', resizeWindow);
+
+        // Создайте всплывающее окно или диалоговое окно,
+        // которое появляется при попытке закрыть вкладку
+        // браузера и спрашивает пользователя, уверен ли он в
+        // своем решении закрыть страницу.
+        window.addEventListener('beforeunload', (event) => {
+            event.preventDefault();
+            event.returnValue = 'Вы уверены?';
+        })
+
+        // Используйте объект history для управления историей
+        // переходов на веб - странице.Создайте кнопки "Назад" и
+        // "Вперед" для перемещения по истории.
+
+        const forward = document.querySelector('.forward');
+        forward.addEventListener('click', () =>
+            window.history.forward()
+        )
+
+        const back = document.querySelector('.back');
+        back.addEventListener('click', () =>
+            window.history.back()
+        )
+
+    </script>
+
+</body>
+
+</html>

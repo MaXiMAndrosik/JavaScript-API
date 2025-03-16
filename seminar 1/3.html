@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+	<script src="articles.js"></script>
+	<style>
+		.list-item {
+			list-style-type: none;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="box-articles">
+		<ul class="list-element"></ul>
+	</div>
+</body>
+<script>
+	const articles = JSON.parse(articlesData);
+
+	const boxArticles = document.querySelector(".box-articles");
+	const articlesList = document.querySelector(".list-element");
+
+	articles.forEach((article) => {
+		const listItem = document.createElement("li");
+
+		listItem.classList.add("list-item");
+
+		const articleTitle = document.createElement("h2");
+		articleTitle.textContent = article.title;
+
+		const articleContent = document.createElement("p");
+		articleContent.textContent = article.content;
+
+		const addButton = document.createElement("button");
+		addButton.classList.add("addButton");
+		addButton.textContent = "Добавить статью";
+		const removeButton = document.createElement("button");
+		removeButton.classList.add("delButton");
+		removeButton.textContent = "Удалить";
+		const changeButton = document.createElement("button");
+		changeButton.classList.add("changeButton");
+		changeButton.textContent = "Изменить статью";
+
+		listItem.appendChild(articleTitle);
+		listItem.appendChild(articleContent);
+		listItem.appendChild(addButton);
+		listItem.appendChild(removeButton);
+		listItem.appendChild(changeButton);
+
+		articlesList.append(listItem);
+
+		boxArticles.appendChild(articlesList);
+	});
+
+	const listItem = document.querySelector("list-item");
+	const addButton = document.querySelector(".addButton");
+	const removeButton = document.querySelector(".delButton");
+	const changeButton = document.querySelector(".changeButton");
+
+	articlesList.addEventListener("click", (event) => {
+		if (event.target.classList.contains("addButton")) {
+			const newListItem = document.createElement("li");
+			newListItem.classList.add("list-item");
+			const articleTitle = document.createElement("h2");
+			articleTitle.textContent = "Новая статья";
+
+			const articleContent = document.createElement("p");
+			articleContent.textContent = "Введите текст статьи...";
+
+			const addButton = document.createElement("button");
+			addButton.classList.add("addButton");
+			addButton.textContent = "Добавить статью";
+			const removeButton = document.createElement("button");
+			removeButton.classList.add("delButton");
+			removeButton.textContent = "Удалить";
+			const changeButton = document.createElement("button");
+			changeButton.classList.add("changeButton");
+			changeButton.textContent = "Изменить статью";
+
+			newListItem.appendChild(articleTitle);
+			newListItem.appendChild(articleContent);
+			newListItem.appendChild(addButton);
+			newListItem.appendChild(removeButton);
+			newListItem.appendChild(changeButton);
+
+			articlesList.append(newListItem);
+
+			boxArticles.appendChild(articlesList);
+		}
+
+		if (event.target.classList.contains("delButton")) {
+			const articleItem = event.target.closest("li");
+			articleItem.remove();
+		}
+
+		if (event.target.classList.contains("changeButton")) {
+			const newTitle = prompt("Введите новоый заголовок статьи:");
+			const newContent = prompt("Введите содержаине статьи:");
+
+			const listItem = event.target.closest("li");
+			const listItemChields = listItem.children;
+
+			console.log(listItemChields);
+
+			for (let element of listItemChields) {
+				if (element.localName === "h2") {
+					console.log(element);
+					element.textContent = newTitle;
+				}
+				if (element.localName === "p") {
+					console.log(element);
+					element.textContent = newContent;
+				}
+			}
+		}
+	});
+</script>
+
+</html>

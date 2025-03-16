@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 3 page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        crossorigin="anonymous">
+    <script src="articles.js"></script>
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <ul class="list-group" id="articleList"></ul>
+        <br>
+        <button class="btn btn-primary mt-3" id="addArticleButton">Добавить статью</button>
+    </div>
+
+    <script>
+        // 1. Вы создаете веб-страницу для отображения списка статей. Каждая статья состоит из заголовка и
+        // текста. Вам необходимо использовать Bootstrap для стилизации элементов.
+        // 2. Используйте Bootstrap, чтобы стилизовать элементы:
+        // a. Заголовок статьи (<h2>)
+        // b. Текст статьи (<p>)
+        // c. Кнопки "Добавить статью", "Удалить" и "Редактировать".
+        // 3. Создайте начальный список статей, который будет загружаться при загрузке страницы. Используйте
+        // JSON-данные для определения заголовков и текстов статей.
+        // 4. Позвольте пользователю добавлять новые статьи. При нажатии на кнопку "Добавить статью" должна
+        // появиться новая статья с заголовком "Новая статья" и текстом "Введите содержание статьи...".
+        // 5. Реализуйте функциональность удаления статей. При нажатии на кнопку "Удалить" соответствующая
+        // статья должна быть удалена из списка.
+        // 6. Реализуйте функциональность редактирования статей. При нажатии на кнопку "Редактировать"
+        // пользователь должен иметь возможность изменить заголовок и текст статьи. Используйте
+        // всплывающее окно или prompt для ввода новых данных.
+        // 7. Все изменения (добавление, удаление, редактирование) должны быть сохранены в локальное
+        // хранилище браузера, чтобы они сохранялись после перезагрузки страницы.
+
+        const articles = JSON.parse(articlesData);
+        console.log(articles);
+
+        const articlesList = document.querySelector(".list-group");
+
+        function createArticle(title = 'title', content = 'content') {
+
+            const articleItem = document.createElement('li');
+            articleItem.classList.add('list-group-item');
+            articlesList.appendChild(articleItem);
+
+            const articleTitle = document.createElement('h2');
+            articleTitle.classList.add('mb-3');
+            articleTitle.textContent = title;
+            articleItem.appendChild(articleTitle);
+
+            const articleText = document.createElement('p');
+            articleText.textContent = content;
+            articleItem.appendChild(articleText);
+
+            const articleDelButton = document.createElement('button');
+            articleDelButton.classList.add('btn', 'btn-danger');
+            articleDelButton.textContent = 'Удалить статью';
+            articleItem.appendChild(articleDelButton);
+
+            const articleEditButton = document.createElement('button');
+            articleEditButton.classList.add('btn', 'btn-info');
+            articleEditButton.textContent = 'Редактировать статью';
+            articleItem.appendChild(articleEditButton);
+
+        }
+
+        articles.forEach(article => {
+            createArticle(article.title, article.content);
+        });
+
+        addArticleButton.addEventListener('click', () => {
+            createArticle('Новая статья', 'Введите содержание статьи...')
+        })
+
+        articlesList.addEventListener('click', () => {
+            if (event.target.classList.contains('btn-danger')) {
+                const articleToRemove = event.target.closest('.list-group-item');
+                articlesList.removeChild(articleToRemove);
+            }
+            else if (event.target.classList.contains('btn-info')) {
+                const articleToEdit = event.target.closest('.list-group-item');
+                const articleTitle = articleToEdit.querySelector('h2');
+                const articleText = articleToEdit.querySelector('p');
+                const newTitle = prompt('Введите новый заголовок:', articleTitle.textContent);
+                const newText = prompt('Введите новый текст:', articleText.textContent);
+                if (newTitle !== null && newText !== null) {
+                    articleTitle.textContent = newTitle;
+                    articleText.textContent = newText;
+                }
+                localStorage.setItem('articles', JSON.stringify(articles));
+            }
+        });
+
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+</body>
+
+</html>
