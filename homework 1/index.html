@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Расписание занятий</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        crossorigin="anonymous">
+    <script src="./data.js"></script>
+</head>
+
+<body>
+
+
+    <div class="container">
+        <h2>Расписание занятий</h2>
+        <br>
+
+        <ul class="list-group" id="lessonsList">
+
+        </ul>
+    </div>
+
+    <script>
+
+        const lessons = JSON.parse(lessonsData);
+        const lessonsList = document.querySelector("#lessonsList");
+
+        function createLessonsSchedule(name = 'name', time = 'time', maxMembers = 'maxMembers', currentMembers = 'currentMembers') {
+
+            const lessonItem = document.createElement('li');
+            lessonItem.classList.add('list-group-item');
+            lessonsList.appendChild(lessonItem);
+
+            const lessonTitle = document.createElement('h3');
+            lessonTitle.textContent = name;
+            lessonItem.appendChild(lessonTitle);
+
+            const lessonTime = document.createElement('p');
+            lessonTime.textContent = 'Время проведения: ' + time;
+            lessonItem.appendChild(lessonTime);
+
+            const lessonMaxMembers = document.createElement('p');
+            lessonMaxMembers.classList.add('maxMembers');
+            lessonMaxMembers.textContent = 'Максимум участников: ' + maxMembers;
+            lessonItem.appendChild(lessonMaxMembers);
+
+            const lessonCurrentMembers = document.createElement('p');
+            lessonCurrentMembers.classList.add('currentMembers');
+            lessonCurrentMembers.textContent = 'Участников записалось: ' + currentMembers;
+            lessonItem.appendChild(lessonCurrentMembers);
+
+            const signUpButton = document.createElement('button');
+            signUpButton.classList.add('signUpButton', 'btn', 'btn-primary');
+            signUpButton.textContent = 'Записаться';
+            if (currentMembers == maxMembers) {
+                signUpButton.disabled = true;
+            }
+            lessonItem.appendChild(signUpButton);
+
+            const deleteButton = document.createElement('button');
+            deleteButton.classList.add('deleteButton', 'btn', 'btn-danger');
+            deleteButton.textContent = 'Отменить запись';
+            if (currentMembers == 0) {
+                deleteButton.disabled = true;
+            }
+            lessonItem.appendChild(deleteButton);
+
+
+        }
+
+        lessons.forEach(lesson => {
+            createLessonsSchedule(lesson.name, lesson.time, lesson.maxMembers, lesson.currentMembers);
+        });
+
+        console.log(lessonsList);
+
+        lessonsList.addEventListener('click', () => {
+            const lessonItem = event.target.closest('.list-group-item');
+            const signUpButton = lessonItem.querySelector('.signUpButton');
+            const deleteButton = lessonItem.querySelector('.deleteButton');
+            let currentMembers = lessonItem.querySelector('.currentMembers');
+            let current = parseInt(currentMembers.textContent.replace(/[^\d]/g, ''));
+            let maxMembers = lessonItem.querySelector('.maxMembers');
+            let max = parseInt(maxMembers.textContent.replace(/[^\d]/g, ''));
+
+            if (event.target.classList.contains('deleteButton')) {
+                if (current > 0) {
+                    currentMembers.textContent = 'Участников записалось: ' + (current - 1);
+                    current--;
+                    signUpButton.disabled = false;
+                }
+                if (current == 0) {
+                    deleteButton.disabled = true;
+                    // alert('Cannot cancel recording');
+                }
+            }
+
+            if (event.target.classList.contains('signUpButton')) {
+                if (current < max) {
+                    currentMembers.textContent = 'Участников записалось: ' + (current + 1);
+                    current++;
+                    deleteButton.disabled = false;
+                }
+                if (current == max) {
+                    signUpButton.disabled = true;
+                    // alert('Unable to record. Group already formed');
+                }
+            }
+        });
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>
