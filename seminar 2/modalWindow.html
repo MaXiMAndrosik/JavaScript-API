@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Modal Window</title>
+	<style>
+		.modal {
+			display: none;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: opacity(0, 0.5, 1);
+			transition: all 1s ease;
+			width: 300px;
+			padding: 20px;
+			background-color: #f0f0f0;
+			text-align: center;
+		}
+
+		.open-modal-btn {
+			padding: 10px 20px;
+			background-color: #333;
+			color: #fff;
+			cursor: pointer;
+		}
+
+		.close-modal-btn {
+			padding: 10px 20px;
+			background-color: #333;
+			color: #fff;
+			cursor: pointer;
+		}
+	</style>
+</head>
+
+<body>
+
+	<button class="open-modal-btn">Открыть модальное окно</button>
+
+	<div class="modal">
+		<h2>Модальное окно</h2>
+		<p>Нажмите кнопку закрыть, чтобы закрыть его.</p>
+		<button class="close-modal-btn">Закрыть модальное окно</button>
+	</div>
+
+</body>
+<script>
+
+	const openWindow = document.querySelector(".open-modal-btn");
+	const closeWindow = document.querySelector(".close-modal-btn");
+	const modalWindow = document.querySelector(".modal");
+
+	document.addEventListener("click", (event) => {
+		if (event.target.classList.contains("open-modal-btn")) {
+			modalWindow.style.display = "block";
+		}
+		if (event.target.classList.contains("close-modal-btn")) {
+			modalWindow.style.opacity = "";
+			modalWindow.style.display = "none";
+		}
+	});
+
+</script>
+
+</html>

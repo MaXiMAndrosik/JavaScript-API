@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Menu</title>
+	<style>
+		.menu {
+			margin-top: 150px;
+			margin-left: 150px;
+			display: flex;
+			gap: 0px;
+			align-content: center;
+			align-items: center;
+			flex-direction: row;
+		}
+
+		.menu__link {
+			display: block;
+			background-color: #2e2e2e;
+			color: #000;
+			width: 100px;
+			height: 50px;
+			text-align: center;
+			align-content: center;
+		}
+
+		.menu__link:hover {
+			background-color: #7d7d7d;
+		}
+
+		.active {
+			background-color: red;
+		}
+
+		a {
+			text-decoration: none;
+			color: white;
+		}
+	</style>
+</head>
+
+<body>
+
+	<header>
+		<nav>
+			<ul class="menu" id="menu">
+				<li class="menu__link"><a href="#">Главная</a></li>
+				<li class="menu__link"><a href="#">О нас</a></li>
+				<li class="menu__link"><a href="#">Услуги</a></li>
+				<li class="menu__link"><a href="#">Контакты</a></li>
+			</ul>
+		</nav>
+	</header>
+
+</body>
+<script>
+	// Вам необходимо создать навигационное меню для веб - сайта, в котором меняется активный пункт при клике без фактического
+	// перехода на другие страницы. Меню должно обладать следующими характеристиками:
+	// 1. Подсветка активного пункта: При клике на пункт меню он должен становиться активным, и для активного пункта должен
+	// применяться определенный стиль (например, изменение цвета фона).Если выбрать другой пункт, предыдущий должен
+	// перестать быть активным.
+	// 2. Эффекты наведения: При наведении курсора на пункты меню должны применяться эффекты (например, изменение цвета
+	// текста или фона) для подсказки пользователю, что пункт меню является интерактивным.
+
+	menu.addEventListener('click', function (e) {
+		if (e.target.classList.contains('menu__link')) {
+			e.preventDefault();
+			console.log(e.target);
+			document.querySelectorAll('.menu__link').forEach(item => {
+				item.classList.remove('active');
+				e.target.classList.add('active');
+			});
+		}
+	});
+
+</script>
+
+</html>

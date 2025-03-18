@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Button Buy</title>
+</head>
+
+<body>
+
+	<button class="buy">Купить</button>
+
+	<script>
+		const button = document.querySelector(".buy");
+
+		button.addEventListener("click", (e) => {
+			button.textContent = "Товар добавлен в корзину";
+			if (e.isTrusted) {
+				setTimeout(() => {
+					button.textContent = "Купить";
+				}, 2000);
+			}
+		});
+
+	</script>
+
+</body>
+
+</html>
