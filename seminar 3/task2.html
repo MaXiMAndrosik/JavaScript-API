@@ -37,7 +37,7 @@
 		async function fetchPhotos() {
 			try {
 				const response = await fetch(
-					`https://api.unsplash.com/photos?page=${page}&per_page=9&client_id=7Tjb0cvLoGl749y8IhgCGJFHgzPkl_cWnIZQeVd1teM`
+					`https://api.unsplash.com/photos?page=${page}&per_page=9&client_id=YOUR_ACCESS_KEY`
 				);
 				const photos = await response.json();
 				return photos;

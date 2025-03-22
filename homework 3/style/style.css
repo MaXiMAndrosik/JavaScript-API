@@ -1,0 +1,15 @@
+.not-like {
+    fill: #6c757d;
+}
+
+.not-like:hover {
+    fill: white;
+}
+
+.like {
+    fill: white;
+}
+
+.avatar {
+    border-radius: 50%;
+}
